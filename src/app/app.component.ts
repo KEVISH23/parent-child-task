@@ -9,6 +9,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class AppComponent implements OnInit {
   title = 'parent-child-task';
   userDetails:any = null
+  array = [1,2,3,4,5]
+
+  currentDate = new Date()
   ngOnInit(){
    this.getData()
   }

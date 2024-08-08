@@ -4,7 +4,7 @@
             <h2 class="text-center mb-2">Dynamic Form</h2>
           <form [formGroup]="userForm" #form="ngForm" (ngSubmit)="submitData(form)">
             <div class="mt-2">
-                <label for="" class="form-label">User ID</label>
+                <label class="form-label">User ID</label>
                 <input type="text" name="userId" formControlName="userId" class="form-control" [ngClass]="{'is-valid': userForm.controls.userId.valid, 'is-invalid': userForm.controls.userId.touched && userForm.controls.userId.invalid}">
                 <p *ngIf="(userForm.controls.userId.errors?.['required'] && userForm.controls.userId.touched )" class="text-danger">Required</p>
                 <!-- <input type="text" name="userId" formControlName="userId" class="form-control" [ngClass]="{'is-valid': userForm.controls.userId.valid, 'is-invalid': userForm.controls.userId.touched || userForm.controls.userId.invalid && form.submitted}">
@@ -12,40 +12,40 @@
                 <p *ngIf="userForm.controls.userId.errors?.['pattern']" class="text-danger">Only numbers are allowed</p>
             </div>
             <div class="mt-2">
-                <label for="" class="form-label">User Name</label>
+                <label class="form-label">User Name</label>
                 <input type="text" name="userName" formControlName="userName" class="form-control" [ngClass]="{'is-valid':userForm.controls.userName.valid, 'is-invalid': userForm.controls.userName.touched && userForm.controls.userName.invalid}">
                 <p *ngIf="userForm.controls.userName.errors?.['required'] && userForm.controls.userName.touched" class="text-danger">Required</p>
                 <p *ngIf="userForm.controls.userName.errors?.['pattern']" class="text-danger">Only strings are allowed</p>
             </div>
             <div class="mt-2">
-                <label for="" class="form-label">Email</label>
-                <input type="email" name="email" formControlName="email" class="form-control" [ngClass]="{'is-valid':  userForm.controls.email.valid, 'is-invalid': userForm.controls.email.touched && userForm.controls.email.invalid}">
+                <label class="form-label">Email</label>
+                <input type="email" name="email" appEmailValidator formControlName="email" class="form-control" [ngClass]="{'is-valid':  userForm.controls.email.valid, 'is-invalid': userForm.controls.email.touched && userForm.controls.email.invalid}">
                 <p *ngIf="userForm.controls.email.errors?.['required'] && userForm.controls.email.touched" class="text-danger">Required</p>
-                <p *ngIf="userForm.controls.email.errors?.['pattern']" class="text-danger">Invalid email</p>
+                <p *ngIf="userForm.controls.email.errors?.['invalidEmail'] && userForm.controls.email.touched" class="text-danger">Invalid email</p>
             </div>
             <div formGroupName="address">
                 <div class="d-flex justify-content-center mt-3">
                     <button (click)="addAddress()" [disabled]="userForm.controls.address.invalid" type="button" class="btn btn-outline-primary">Add address</button>
                 </div>
                 <div *ngFor="let data of userForm.controls.address.controls,let i = index" formGroupName="{{i}}" class="row">
-                    <label for="" class="form-label mt-2">Address {{i+1}}</label>
+                    <label class="form-label mt-2">Address {{i+1}}</label>
                     <div class="mt-2 col-6">
-                        <label for="" class="form-label">Street</label>
+                        <label class="form-label">Street</label>
                         <input type="text" name="street" formControlName="street" class="form-control" [ngClass]="{'is-valid':  userForm.controls.address.controls[i].controls.street.valid, 'is-invalid': userForm.controls.address.controls[i].controls.street.touched &&  userForm.controls.address.controls[i].controls.street.invalid}">
                         <p *ngIf="userForm.controls.address.controls[i].controls.street.errors?.['required'] && userForm.controls.address.controls[i].controls.street.touched" class="text-danger">Required</p>
                     </div>
                     <div class="mt-2 col-6">
-                        <label for="" class="form-label">City</label>
+                        <label class="form-label">City</label>
                         <input type="text" name="city" formControlName="city" class="form-control" [ngClass]="{'is-valid':  userForm.controls.address.controls[i].controls.city.valid, 'is-invalid': userForm.controls.address.controls[i].controls.city.touched &&  userForm.controls.address.controls[i].controls.city.invalid}">
                         <p *ngIf="userForm.controls.address.controls[i].controls.city.errors?.['required'] && userForm.controls.address.controls[i].controls.city.touched" class="text-danger">Required</p>
                     </div>
                     <div class="mt-2 col-6">
-                        <label for="" class="form-label">State</label>
+                        <label class="form-label">State</label>
                         <input type="text" name="state" formControlName="state" class="form-control" [ngClass]="{'is-valid':  userForm.controls.address.controls[i].controls.state.valid, 'is-invalid': userForm.controls.address.controls[i].controls.state.touched &&  userForm.controls.address.controls[i].controls.state.invalid}">
                         <p *ngIf="userForm.controls.address.controls[i].controls.state.errors?.['required'] && userForm.controls.address.controls[i].controls.state.touched" class="text-danger">Required</p>
                     </div>
                     <div class="mt-2 col-6">
-                        <label for="" class="form-label">Zip Code</label>
+                        <label class="form-label">Zip Code</label>
                         <input type="text" name="zipCode" formControlName="zipCode" class="form-control" [ngClass]="{'is-valid':  userForm.controls.address.controls[i].controls.zipCode.valid, 'is-invalid': userForm.controls.address.controls[i].controls.zipCode.touched &&  userForm.controls.address.controls[i].controls.zipCode.invalid}">
                         <p *ngIf="userForm.controls.address.controls[i].controls.zipCode.errors?.['required'] && userForm.controls.address.controls[i].controls.zipCode.touched" class="text-danger">Required</p>
                     </div>
@@ -62,5 +62,5 @@
     </div>
 </div>
 
-<p class="text-center" *ngIf="!userDetails">No details</p>
+<p class="text-center" ngNonBindable *appCustomNgIf="(1+1)===2" [appHighlight]="false"> No details  {{1+1}}</p>
 <p class="text-center" *ngIf="userDetails">{{userDetails | json}}</p>

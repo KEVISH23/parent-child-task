@@ -17,7 +17,7 @@ export class UserManagerComponent {
   untouched:boolean = false
   userForm = this.fb.group({
     userId:['',[Validators.required,Validators.pattern(/^[0-9]+$/)]],
-    email:['',[Validators.required,Validators.pattern(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/)]],
+    email:['',[Validators.required]],
     userName:['',[Validators.required,Validators.pattern(/^[a-z A-z]+$/)]],
     address: this.fb.array([
       this.fb.group({
@@ -29,7 +29,7 @@ export class UserManagerComponent {
     ])
   })
   showForm(){
-    console.log(this.userForm)
+    // console.log(this.userForm)
   }
   addAddress(){
     this.userForm.controls['address'].push(this.fb.group({
@@ -41,6 +41,7 @@ export class UserManagerComponent {
     this.onAddAddress.emit()
   }
   submitData(e:any){
+
     if(this.userForm.valid){
       this.onDataSubmit.emit(this.userForm.value)
       this.userForm.controls.address.clear()

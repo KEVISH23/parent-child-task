@@ -7,3 +7,8 @@
 ></app-user-manager>
 
 <!-- diff event emitter for different purpose for now -->
+
+<h1>Date:- {{ currentDate }}</h1>
+<h1>Date:- {{ currentDate | date : "dd MMM YYYY" }}</h1>
+<h1>{{ "String" | lowercase | uppercase }}</h1>
+<h1>{{ [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] | filterEven | addTwo }}</h1>
